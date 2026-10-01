@@ -1,0 +1,94 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CashFlow</title>
+<link rel="stylesheet" href="/static/style.css">
+
+<header class="topbar">
+  <h1>Cash<span>Flow</span></h1>
+  <div class="scenario-bar">
+    <select id="scenario-select" title="Active scenario"></select>
+    <button id="btn-save-as" class="ghost" title="Duplicate current scenario">Save as…</button>
+    <button id="btn-rename" class="ghost">Rename</button>
+    <button id="btn-delete-scenario" class="ghost danger">Delete</button>
+    <button id="btn-compare" class="ghost">Compare</button>
+    <button id="btn-settings" class="ghost" title="Settings">⚙</button>
+  </div>
+</header>
+
+<main id="app">
+
+  <section class="card" id="income-card">
+    <div class="card-head">
+      <h2>Income</h2>
+      <button id="btn-add-stream" class="add">+ Stream</button>
+    </div>
+    <div id="streams"></div>
+    <div class="income-summary">
+      <div><label>Gross / yr</label><strong id="sum-gross-yr">$0</strong></div>
+      <div><label>Gross / mo</label><strong id="sum-gross-mo">$0</strong></div>
+      <div><label>Take-home / yr</label><strong id="sum-net-yr" class="accent">$0</strong></div>
+      <div><label>Take-home / mo</label><strong id="sum-net-mo" class="accent">$0</strong></div>
+    </div>
+  </section>
+
+  <section class="card" id="alloc-card">
+    <div class="card-head">
+      <h2>Allocation</h2>
+      <span id="alloc-total" class="pill">100%</span>
+      <button id="btn-add-cat" class="add">+ Category</button>
+    </div>
+    <div id="categories"></div>
+  </section>
+
+  <section class="card" id="goals-card">
+    <div class="card-head"><h2>Goals</h2></div>
+    <div id="goals"></div>
+  </section>
+
+  <section class="card" id="data-card">
+    <div class="card-head"><h2>Data</h2></div>
+    <div class="row gap">
+      <button id="btn-export" class="ghost">Export JSON</button>
+      <button id="btn-import" class="ghost">Import JSON</button>
+      <input type="file" id="import-file" accept=".json,application/json" hidden>
+    </div>
+  </section>
+
+</main>
+
+<!-- compare overlay -->
+<div id="compare-overlay" class="overlay" hidden>
+  <div class="overlay-box wide">
+    <div class="card-head">
+      <h2>Compare scenarios</h2>
+      <button class="ghost close" data-close="compare-overlay">✕</button>
+    </div>
+    <div class="row gap compare-pickers">
+      <select id="cmp-a"></select>
+      <span class="vs">vs</span>
+      <select id="cmp-b"></select>
+    </div>
+    <div id="compare-body"></div>
+  </div>
+</div>
+
+<!-- settings overlay -->
+<div id="settings-overlay" class="overlay" hidden>
+  <div class="overlay-box">
+    <div class="card-head">
+      <h2>Settings</h2>
+      <button class="ghost close" data-close="settings-overlay">✕</button>
+    </div>
+    <label class="field">Roth IRA annual limit ($)
+      <input type="number" id="set-roth-limit" min="0" step="100">
+    </label>
+    <label class="field">Default effective tax rate (%)
+      <input type="number" id="set-tax-rate" min="0" max="60" step="0.5">
+    </label>
+    <button id="btn-save-settings" class="primary">Save</button>
+  </div>
+</div>
+
+<div id="toast" hidden></div>
+
+<script src="/static/app.js"></script>
